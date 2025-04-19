@@ -1,0 +1,4 @@
+{
+  "policy_id": "string",
+  "rules": [{"role": "string", "threshold": "number"}]
+}

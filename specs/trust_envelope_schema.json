@@ -1,0 +1,5 @@
+{
+  "envelope_id": "string",
+  "actor": "string",
+  "signatures": ["pqc", "rsa"]
+}
