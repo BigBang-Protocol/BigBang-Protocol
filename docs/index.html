@@ -1,18 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>BigBang Protocol</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 30px; line-height: 1.6; }
-        h1, h2, h3 { color: #1d3557; }
-        code { background-color: #f5f5f5; padding: 2px 4px; border-radius: 4px; }
-        pre { background: #f0f0f0; padding: 12px; overflow-x: auto; }
-        a { color: #007acc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
+  <meta charset="UTF-8">
+  <title>BigBang Protocol – Trust-Enforced Digital Actions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; background-color: #fdfdfd; color: #333; }
+    h1, h2, h3 { color: #1a237e; }
+    a { color: #0d47a1; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .badge { vertical-align: middle; margin-right: 10px; }
+    .section { margin-bottom: 30px; }
+    .code-block { background-color: #f5f5f5; padding: 10px; border-radius: 6px; font-family: monospace; }
+  </style>
 </head>
 <body>
-<h1>BigBang Protocol<br><br>![Release v1.3.0](https://img.shields.io/github/v/release/bigbang-protocol/bigbang-protocol?style=flat-square)<br>![License: MIT](https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol?style=flat-square)<br>![Status: Active](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)<br><br>> **Verifiable Intent. Enforced Policy. Digital Trust, Signed.**<br><br>BigBang Protocol is a post-quantum ready cryptographic trust enforcement layer that transforms every digital action into a **verifiable, policy-bound, tamper-resistant TrustEnvelope**.  <br>Designed to replace assumptions with mathematical proof, BigBang ensures that **only authorized actions can occur — and only when policy permits them.**<br><br>---<br><br>#<h1>Core Features<br><br>- **TrustEnvelopes** — Signed, structured objects that prove who did what, when, and under what role.<br>- **Dual-Signature Crypto** — Supports both classical (RSA/ECDSA) and post-quantum (Dilithium/Falcon).<br>- **TaaS (Trust-as-a-Service)** — Real-time policy enforcement engine that validates or blocks actions.<br>- **Cross-system Auditability** — Verify trust even without access to the original system.<br>- **Envelope Lifecycle** — From creation to archive, actions become legally portable cryptographic objects.<br><br>---<br><br>#<h1>Generate a TrustEnvelope (CLI)<br><br>You can create a valid, policy-bound TrustEnvelope using the command-line builder included in this repo.<br><br>```bash<br>python examples/generate_envelope.py \<br>  --id alice@ministry.gov \<br>  --role finance.director \<br>  --action approve_fund_disbursement \<br>  --method pqc.dilithium3 \<br>  --scope RM500000<br>```<br><br>---<br><br>#<h1>Folder Structure<br><br>```bash<br>bigbang-protocol/<br>├── README.md                <h1>This file<br>├── LICENSE                  <h1>MIT License<br>├── ROADMAP.md               <h1>Release goals and plans<br>├── docs/                    <h1>Concept paper, trust architecture<br>├── src/                     <h1>Core signer/verifier logic<br>├── examples/                <h1>Sample envelopes and usage<br>├── specs/                   <h1>Envelope & Policy JSON schemas<br>├── assets/images/           <h1>Protocol diagrams & illustrations<br>├── .github/workflows/       <h1>CI/CD setup (GitHub Actions)<br>```<br><br>---<br><br>#<h1>Protocol Versions<br><br>##<h1>✅ v1.0.0 — Genesis Release<br>- TrustEnvelope schema (dual-signature)<br>- Python verifier prototype<br>- MIT-licensed public release<br><br>##<h1>✅ v1.1.0 — TaaS Alpha + Envelope Builder<br>- REST API verifier<br>- Envelope builder CLI<br>- Policy middleware with trust checks<br><br>##<h1>✅ v1.2.0 — Visual Trust Dashboard + DMS Export<br>- [Envelope Verifier (v1.2.0)](https://bigbang-protocol.github.io/bigbang-protocol/verifier.html)<br>- [DMS Viewer + Metadata Export](https://bigbang-protocol.github.io/bigbang-protocol/trust_dms_ui.html)<br><br>##<h1>✅ v1.3.0 — Multi-Signer Governance & Quorum<br>- [Multi-Signer Trust Dashboard (PDF Export)](https://bigbang-protocol.github.io/bigbang-protocol/trust_multisign.html)<br>- Dockerized Verifier + Delegation-ready envelope chain<br><br>---<br><br>#<h1>Upcoming: v1.4.0 — Federation Anchoring & Delegation<br>- Blockchain/IPFS envelope anchoring<br>- Delegated signer enforcement<br>- Cross-org trust envelope validation<br><br>---<br><br>> Trust is no longer assumed — it is **signed, policy-bound, and mathematically enforced**.<br>
+
+  <h1>BigBang Protocol</h1>
+  <p><strong>Verifiable Intent. Enforced Policy. Digital Trust, Signed.</strong></p>
+
+  <div class="section">
+    <img src="https://img.shields.io/github/v/release/bigbang-protocol/bigbang-protocol?label=Release&style=flat-square" class="badge">
+    <img src="https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol?label=License: MIT&style=flat-square" class="badge">
+    <img src="https://img.shields.io/badge/status-active-brightgreen?style=flat-square" class="badge">
+  </div>
+
+  <div class="section">
+    <h2>Protocol Versions</h2>
+    <ul>
+      <li><strong>v1.0.0</strong> – Genesis Release</li>
+      <li><strong>v1.1.0</strong> – TaaS Alpha + CLI Builder</li>
+      <li><strong>v1.2.0</strong> – <a href="trust_dashboard.html">Visual Trust Dashboard</a></li>
+      <li><strong>v1.3.0</strong> – <a href="trust_dashboard_multi_v3.html">Multi-Signer + PDF Export</a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Live Demos</h2>
+    <ul>
+      <li><a href="trust_dashboard.html">Envelope Verifier</a></li>
+      <li><a href="trust_dms_ui.html">DMS Viewer</a></li>
+      <li><a href="trust_dashboard_multi_v3.html">Multi-Signer Verifier + PDF</a></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Try It: Create a TrustEnvelope</h2>
+    <div class="code-block">
+      python examples/generate_envelope.py \<br>
+      &nbsp;&nbsp;--id alice@ministry.gov \<br>
+      &nbsp;&nbsp;--role finance.director \<br>
+      &nbsp;&nbsp;--action approve_fund_disbursement \<br>
+      &nbsp;&nbsp;--method pqc.dilithium3 \<br>
+      &nbsp;&nbsp;--scope RM500000
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Upcoming: v1.4.0</h2>
+    <ul>
+      <li>Blockchain/IPFS Anchoring</li>
+      <li>Delegated Signer Enforcement</li>
+      <li>Cross-Org Federation Verification</li>
+    </ul>
+  </div>
+
+  <p><em>Trust is no longer assumed — it is <strong>signed, policy-bound, and mathematically enforced</strong>.</em></p>
+
 </body>
 </html>
