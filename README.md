@@ -1,5 +1,5 @@
 ![Release](https://img.shields.io/github/v/release/bigbang-protocol/bigbang-protocol?label=Release&style=flat-square)
-![License](https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol?style=flat-square)
+![License]([https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol?style=flat-square](https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol))
 ![Status](https://img.shields.io/badge/Status-Active-blue?style=flat-square)
 
 # BigBang Protocol
