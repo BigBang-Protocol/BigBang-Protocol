@@ -44,3 +44,20 @@ bigbang-protocol/
 ├── specs/                   # Envelope & Policy JSON schemas
 ├── assets/images/           # Protocol diagrams & illustrations
 ├── .github/workflows/       # CI/CD setup (coming soon)
+
+
+## Release Milestones
+
+- **v1.0.0 – Genesis**
+  - Initial TrustEnvelope concept and signer/verifier SDK
+
+- **v1.1.0-alpha – Verifier Engine**
+  - TaaS verification API
+  - Envelope builder CLI
+  - Dockerized verifier service
+
+- **v1.2.0 – Visual Trust + DMS Export**
+  - Public Trust Dashboard UI
+  - Metadata Viewer (`trust_dms_ui.html`)
+  - Export to PDF and JSON
+  - GitHub Pages deployment
