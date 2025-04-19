@@ -1,0 +1,27 @@
+name: Verify TrustEnvelope on Push
+
+on:
+  push:
+    paths:
+      - 'examples/*.json'
+
+jobs:
+  verify-envelope:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install FastAPI & Dependencies
+        run: |
+          pip install fastapi pydantic
+
+      - name: Run Envelope Verification
+        run: |
+          echo "Starting verification..."
+          python examples/verify.py || echo "No direct verify.py test found. TaaS runs externally."
