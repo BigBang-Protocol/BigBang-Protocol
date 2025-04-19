@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BigBang Trust Dashboard v2 – Multi-Signer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        input[type="file"], button { margin-top: 10px; padding: 8px 20px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>BigBang Multi-Signer TrustEnvelope Verifier</h1>
+    <p>Select a <code>.json</code> TrustEnvelope file:</p>
+    <input type="file" id="fileInput" accept=".json">
+    <button onclick="verifyEnvelope()">Verify Envelope</button>
+    <div id="result"></div>
+
+    <script>
+        let envelopeData = {};
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    envelopeData = JSON.parse(e.target.result);
+                    displayEnvelope(envelopeData);
+                } catch (err) {
+                    document.getElementById('result').innerHTML = "<strong style='color:orange;'>Error parsing JSON</strong><br>" + err;
+                }
+            };
+
+            if (file) reader.readAsText(file);
+        });
+
+        function displayEnvelope(data) {
+            let html = `<strong>Envelope ID:</strong> ${data.envelope_id}<br>`;
+            html += `<strong>Intent:</strong> ${data.intent.action} | Scope: ${data.intent.scope}<br>`;
+            html += `<strong>Timestamp:</strong> ${data.timestamp}<br>`;
+            html += `<strong>Actors:</strong><ul>`;
+            for (let actor of data.actors) {
+                html += `<li>${actor.id} (${actor.role}) via ${actor.method}</li>`;
+            }
+            html += `</ul>`;
+            html += `<strong>Signatures:</strong><ul>`;
+            for (let sig of data.signatures) {
+                html += `<li>${sig.actor_id} — PQC: ${sig.pqc ? "✔️" : "❌"}, Classical: ${sig.classical ? "✔️" : "❌"}</li>`;
+            }
+            html += `</ul>`;
+            document.getElementById('result').innerHTML = html;
+        }
+
+        function verifyEnvelope() {
+            // Simulate call to /verify-envelope-v2/ (replace with fetch() to real API)
+            const rolesSigned = envelopeData.signatures.map(sig => sig.actor_id);
+            const expectedRoles = envelopeData.actors.map(a => a.id);
+            const missing = expectedRoles.filter(id => !rolesSigned.includes(id));
+
+            let output = "<strong>Verification Result:</strong><br>";
+            if (missing.length === 0) {
+                output += "<span style='color:green;'>✅ All required actors have signed this envelope.</span>";
+            } else {
+                output += "<span style='color:red;'>❌ Missing signatures from:</span><ul>";
+                for (let m of missing) output += `<li>${m}</li>`;
+                output += "</ul>";
+            }
+            document.getElementById('result').innerHTML += "<hr>" + output;
+        }
+    </script>
+</body>
+</html>
