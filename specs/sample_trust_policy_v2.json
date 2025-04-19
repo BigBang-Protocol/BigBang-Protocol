@@ -1,0 +1,22 @@
+{
+  "policy_id": "trustpolicy-v2.0.0-quorum",
+  "description": "Multi-role quorum policy for fund disbursement",
+  "rules": [
+    {
+      "role": "finance.director",
+      "action": "approve_fund_disbursement",
+      "method": [
+        "pqc.dilithium3",
+        "ecdsa.p256"
+      ]
+    },
+    {
+      "role": "audit.controller",
+      "action": "approve_fund_disbursement",
+      "method": [
+        "rsa.2048",
+        "pqc.falcon512"
+      ]
+    }
+  ]
+}
