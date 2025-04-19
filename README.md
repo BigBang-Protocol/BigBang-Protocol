@@ -1,4 +1,4 @@
-![Release](https://img.shields.io/github/v/release/patahul/bigbang-protocol?label=Genesis%20Release&style=flat-square)
+![Release](https://img.shields.io/github/v/release/patahul/bigbang-protocol?label=Latest%20Release&style=flat-square)
 
 # BigBang Protocol
 
