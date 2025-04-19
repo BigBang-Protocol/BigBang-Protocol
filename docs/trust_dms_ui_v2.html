@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BigBang DMS UI – Trust Report Export</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        input[type="file"], button { margin-top: 10px; padding: 8px 15px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>BigBang TrustEnvelope Viewer + Export</h1>
+    <p>Select a <code>.json</code> envelope file:</p>
+    <input type="file" id="fileInput" accept=".json"><br>
+    <div id="output"></div>
+    <button onclick="exportToPDF()">Export Trust Report (PDF)</button>
+    <button onclick="exportToJSON()">Export Trust Report (JSON)</button>
+
+    <script>
+        let envelopeData = {};
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    envelopeData = JSON.parse(e.target.result);
+                    const output = document.getElementById('output');
+
+                    output.innerHTML = `
+                        <strong>Envelope ID:</strong> ${envelopeData.envelope_id}<br>
+                        <strong>Actor:</strong> ${envelopeData.actor.id}<br>
+                        <strong>Role:</strong> ${envelopeData.actor.role}<br>
+                        <strong>Method:</strong> ${envelopeData.actor.method}<br>
+                        <strong>Action:</strong> ${envelopeData.intent.action}<br>
+                        <strong>Scope:</strong> ${envelopeData.intent.scope}<br>
+                        <strong>Policy Ref:</strong> ${envelopeData.policy_ref}<br>
+                        <strong>Timestamp:</strong> ${envelopeData.timestamp}<br>
+                        <hr><pre>${JSON.stringify(envelopeData, null, 2)}</pre>
+                    `;
+                } catch (error) {
+                    document.getElementById('output').innerHTML = "⚠️ Error parsing file: " + error;
+                }
+            };
+
+            if (file) reader.readAsText(file);
+        });
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(12);
+            doc.text("BigBang Protocol – Trust Report", 10, 10);
+            const lines = [
+                `Envelope ID: ${envelopeData.envelope_id}`,
+                `Actor: ${envelopeData.actor?.id}`,
+                `Role: ${envelopeData.actor?.role}`,
+                `Method: ${envelopeData.actor?.method}`,
+                `Action: ${envelopeData.intent?.action}`,
+                `Scope: ${envelopeData.intent?.scope}`,
+                `Policy Ref: ${envelopeData.policy_ref}`,
+                `Timestamp: ${envelopeData.timestamp}`
+            ];
+            doc.text(lines, 10, 20);
+            doc.save("TrustReport.pdf");
+        }
+
+        function exportToJSON() {
+            const blob = new Blob([JSON.stringify(envelopeData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "TrustReport.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
