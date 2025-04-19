@@ -60,11 +60,6 @@
 * Message bus: Use envelope-wrapped events in EventBridge/Kafka.
 * Envelope storage: Cross-compatible with S3/GCS/Azure Blob.
 * DevSecOps: Enforce envelope sign-off for CI/CD approval steps.
-### Next Steps
-* Generate visual threat map
-* Build full PDF whitepaper
-* Update protocol spec with these layers
-* Package GitHub ZIP release
 
 ---
 **Contact:** [patahul@outlook.com](mailto:patahul@outlook.com)
