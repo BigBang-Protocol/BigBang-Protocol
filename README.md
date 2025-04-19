@@ -1,7 +1,7 @@
 # BigBang Protocol
 
 ![Release v1.3.0](https://img.shields.io/github/v/release/bigbang-protocol/bigbang-protocol?style=flat-square)
-![License: MIT](https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol?style=flat-square)
+![License: MIT](https://img.shields.io/github/license/bigbang-protocol/bigbang-protocol)
 ![Status: Active](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)
 
 > **Verifiable Intent. Enforced Policy. Digital Trust, Signed.**
