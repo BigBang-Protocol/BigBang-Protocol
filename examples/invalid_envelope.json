@@ -1,0 +1,20 @@
+{
+  "envelope_id": "txn-2025-002",
+  "actor": {
+    "id": "bob@contractor.com",
+    "role": "external.consultant",
+    "device_id": "device-999",
+    "method": "pqc.dilithium3"
+  },
+  "intent": {
+    "action": "approve_fund_disbursement",
+    "scope": "RM250000",
+    "target_hash": "SHA256:deadbeefcafebabe0000"
+  },
+  "policy_ref": "trustpolicy-v1.0.0-hash123",
+  "timestamp": "2025-04-21T09:15:00Z",
+  "signatures": {
+    "pqc": "INVALID_SIG_PLACEHOLDER",
+    "classical": "INVALID_SIG_PLACEHOLDER"
+  }
+}
