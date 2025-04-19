@@ -1,0 +1,21 @@
+{
+  "policy_id": "trustpolicy-v1.0.0",
+  "version": "1.0.0",
+  "created_at": "2025-04-15T00:00:00Z",
+  "rules": [
+    {
+      "role": "finance.director",
+      "action": "approve_fund_disbursement",
+      "method": ["pqc.dilithium3", "rsa2048"],
+      "max_scope": "RM1000000",
+      "quorum": 1
+    },
+    {
+      "role": "ceo.ministry",
+      "action": "approve_fund_disbursement",
+      "method": ["pqc.dilithium5"],
+      "max_scope": "RM10000000",
+      "quorum": 2
+    }
+  ]
+}
