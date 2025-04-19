@@ -1,0 +1,22 @@
+name: Verify TrustEnvelope
+
+on:
+  push:
+    paths:
+      - 'examples/test_envelope.json'
+      - 'specs/sample_trust_policy.json'
+      - 'examples/verify.py'
+
+jobs:
+  run-verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Run verifier
+        run: |
+          cd examples
+          python verify.py
