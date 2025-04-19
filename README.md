@@ -17,6 +17,20 @@ BigBang Protocol is a post-quantum ready cryptographic trust enforcement layer t
 
 ---
 
+## Generate a TrustEnvelope (CLI)
+
+You can create a valid, policy-bound TrustEnvelope using the command-line builder included in this repo.
+
+```bash
+python examples/generate_envelope.py \
+  --id alice@ministry.gov \
+  --role finance.director \
+  --action approve_fund_disbursement \
+  --method pqc.dilithium3 \
+  --scope RM500000
+
+---
+
 ## Folder Structure
 
 ```bash
