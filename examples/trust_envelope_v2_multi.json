@@ -1,0 +1,36 @@
+{
+  "envelope_id": "env-xyz-001",
+  "actors": [
+    {
+      "id": "alice@ministry.gov",
+      "role": "finance.director",
+      "device_id": "device-alice",
+      "method": "pqc.dilithium3"
+    },
+    {
+      "id": "bob@auditor.gov",
+      "role": "audit.controller",
+      "device_id": "device-bob",
+      "method": "rsa.2048"
+    }
+  ],
+  "intent": {
+    "action": "approve_fund_disbursement",
+    "scope": "RM500000",
+    "target_hash": "SHA256:demo0000000000000000000000000000"
+  },
+  "policy_ref": "trustpolicy-v2.0.0-quorum",
+  "timestamp": "2025-04-19T15:00:00Z",
+  "signatures": [
+    {
+      "actor_id": "alice@ministry.gov",
+      "pqc": "BASE64_PQC_SIGNATURE_ALICE",
+      "classical": "BASE64_RSA_SIGNATURE_ALICE"
+    },
+    {
+      "actor_id": "bob@auditor.gov",
+      "pqc": "",
+      "classical": "BASE64_RSA_SIGNATURE_BOB"
+    }
+  ]
+}
