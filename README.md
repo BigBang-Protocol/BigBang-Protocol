@@ -65,3 +65,35 @@ bigbang-protocol/
   Metadata Viewer (`trust_dms_ui.html`)  
   Export to PDF and JSON  
   GitHub Pages deployment
+
+---
+
+## v1.3.0 – Multi-Signer Envelope Support
+
+BigBang Protocol now supports **quorum-based approval** using multi-actor TrustEnvelopes. This enables workflows such as:
+
+- Maker + Checker approval chains
+- Role-based quorum policies
+- Verifiable co-signatures with cryptographic enforcement
+
+### New Envelope Structure
+- `actors[]`: Multiple identity roles (e.g., finance director, auditor)
+- `signatures[]`: Separate signature blocks per actor
+- `policy_ref`: Points to a policy requiring multi-role approval
+
+### Sample Files:
+- `examples/trust_envelope_v2_multi.json` – Multi-signer envelope
+- `specs/sample_trust_policy_v2.json` – Role-based policy rules
+- `taas/taas_verifier_multi.py` – TaaS v2 verifier logic
+
+### API Endpoint:
+```
+POST /verify-envelope-v2/
+```
+
+This endpoint validates that all required roles have signed with approved methods.  
+Missing or mismatched roles will result in a rejected envelope.
+
+> BigBang v1.3.0 moves beyond trust assumption — into cryptographic quorum enforcement.
+
+---
