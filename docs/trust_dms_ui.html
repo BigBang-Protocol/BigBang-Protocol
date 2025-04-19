@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BigBang DMS UI – Envelope Metadata Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        input[type="file"] { margin-top: 10px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>BigBang TrustEnvelope Preview</h1>
+    <p>Select a <code>.json</code> envelope file to view its metadata:</p>
+    <input type="file" id="fileInput" accept=".json">
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const envelope = JSON.parse(e.target.result);
+                    const output = document.getElementById('output');
+
+                    output.innerHTML = `
+                        <strong>Envelope ID:</strong> ${envelope.envelope_id}<br>
+                        <strong>Actor:</strong> ${envelope.actor.id}<br>
+                        <strong>Role:</strong> ${envelope.actor.role}<br>
+                        <strong>Method:</strong> ${envelope.actor.method}<br>
+                        <strong>Action:</strong> ${envelope.intent.action}<br>
+                        <strong>Scope:</strong> ${envelope.intent.scope}<br>
+                        <strong>Policy Ref:</strong> ${envelope.policy_ref}<br>
+                        <strong>Timestamp:</strong> ${envelope.timestamp}<br>
+                        <hr>
+                        <pre>${JSON.stringify(envelope, null, 2)}</pre>
+                    `;
+                } catch (error) {
+                    document.getElementById('output').innerHTML = "⚠️ Error parsing file: " + error;
+                }
+            };
+
+            if (file) reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
