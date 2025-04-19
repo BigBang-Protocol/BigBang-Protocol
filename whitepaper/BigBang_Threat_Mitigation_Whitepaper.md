@@ -71,9 +71,7 @@ TaaS nodes may be internal, federated, or government-authorized.
 BigBang redefines what digital trust means. No longer just “who signed”, but “who did what, when, and under what policy.”
 
 ### Next actions
-* Publish GitHub repository with developer SDK
-* Partner with CAs and regulators
-* Launch envelope testnet for public validation
+* Work with NIST, eIDAS, etc 
 
 End of Document
 ---
