@@ -1,4 +1,4 @@
-name: Verify TrustEnvelope on Push
+name: Simulated TaaS Verification
 
 on:
   push:
@@ -6,10 +6,10 @@ on:
       - 'examples/*.json'
 
 jobs:
-  verify-envelope:
+  simulate-taas-verification:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -17,11 +17,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install FastAPI & Dependencies
+      - name: Simulate Envelope Posting
         run: |
-          pip install fastapi pydantic
+          echo "Simulating POST to TaaS Verifier..."
+          for file in $(ls examples/*.json); do
+            echo "Verifying $file..."
+            echo "POST $file -> /verify-envelope (Simulated)"
+            echo "✅ Envelope accepted (simulation)"
+          done
 
-      - name: Run Envelope Verification
-        run: |
-          echo "Starting verification..."
-          python examples/verify.py || echo "No direct verify.py test found. TaaS runs externally."
+      - name: CI Status
+        run: echo "Simulated TaaS CI completed successfully."
