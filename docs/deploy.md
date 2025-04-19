@@ -83,4 +83,4 @@ Ensure the following are in your working directory:
 ## Questions or Contributions
 
 Visit the GitHub repository:  
-[github.com/your-username/bigbang-protocol](https://github.com/your-username/bigbang-protocol)
+[github.com/bigbang-protocol/bigbang-protocol](https://github.com/your-username/bigbang-protocol)
