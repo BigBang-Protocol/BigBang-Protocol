@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BigBang Trust Dashboard v3 – Multi-Signer + PDF Export</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        #result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+        input[type="file"], button { margin-top: 10px; padding: 8px 20px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>BigBang Multi-Signer TrustEnvelope Verifier + PDF Export</h1>
+    <p>Select a <code>.json</code> TrustEnvelope file:</p>
+    <input type="file" id="fileInput" accept=".json"><br>
+    <button onclick="verifyEnvelope()">Verify Envelope</button>
+    <button onclick="exportToPDF()">Export Trust Report (PDF)</button>
+    <div id="result"></div>
+
+    <script>
+        let envelopeData = {};
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    envelopeData = JSON.parse(e.target.result);
+                    displayEnvelope(envelopeData);
+                } catch (err) {
+                    document.getElementById('result').innerHTML = "<strong style='color:orange;'>Error parsing JSON</strong><br>" + err;
+                }
+            };
+
+            if (file) reader.readAsText(file);
+        });
+
+        function displayEnvelope(data) {
+            let html = `<strong>Envelope ID:</strong> ${data.envelope_id}<br>`;
+            html += `<strong>Intent:</strong> ${data.intent.action} | Scope: ${data.intent.scope}<br>`;
+            html += `<strong>Timestamp:</strong> ${data.timestamp}<br>`;
+            html += `<strong>Actors:</strong><ul>`;
+            for (let actor of data.actors) {
+                html += `<li>${actor.id} (${actor.role}) via ${actor.method}</li>`;
+            }
+            html += `</ul><strong>Signatures:</strong><ul>`;
+            for (let sig of data.signatures) {
+                html += `<li>${sig.actor_id} — PQC: ${sig.pqc ? "✔️" : "❌"}, Classical: ${sig.classical ? "✔️" : "❌"}</li>`;
+            }
+            html += `</ul>`;
+            document.getElementById('result').innerHTML = html;
+        }
+
+        function verifyEnvelope() {
+            const rolesSigned = envelopeData.signatures.map(sig => sig.actor_id);
+            const expectedRoles = envelopeData.actors.map(a => a.id);
+            const missing = expectedRoles.filter(id => !rolesSigned.includes(id));
+
+            let output = "<strong>Verification Result:</strong><br>";
+            if (missing.length === 0) {
+                output += "<span style='color:green;'>✅ All required actors have signed this envelope.</span>";
+            } else {
+                output += "<span style='color:red;'>❌ Missing signatures from:</span><ul>";
+                for (let m of missing) output += `<li>${m}</li>`;
+                output += "</ul>";
+            }
+            document.getElementById('result').innerHTML += "<hr>" + output;
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(12);
+
+            doc.text("BigBang Trust Report", 10, 10);
+            let y = 20;
+            const lines = [
+                `Envelope ID: ${envelopeData.envelope_id}`,
+                `Intent: ${envelopeData.intent?.action} | Scope: ${envelopeData.intent?.scope}`,
+                `Policy Ref: ${envelopeData.policy_ref}`,
+                `Timestamp: ${envelopeData.timestamp}`,
+                "",
+                "Actors:"
+            ];
+            for (const actor of envelopeData.actors) {
+                lines.push(`- ${actor.id} (${actor.role}) via ${actor.method}`);
+            }
+            lines.push("", "Signatures:");
+            for (const sig of envelopeData.signatures) {
+                lines.push(`- ${sig.actor_id} | PQC: ${sig.pqc ? "✔️" : "❌"}, Classical: ${sig.classical ? "✔️" : "❌"}`);
+            }
+
+            for (const line of lines) {
+                doc.text(line, 10, y);
+                y += 8;
+            }
+
+            doc.save("TrustReport.pdf");
+        }
+    </script>
+</body>
+</html>
